@@ -1,0 +1,17 @@
+## Customize test commands
+machine:
+  services:
+    - docker
+dependencies:
+  override:
+    - docker info
+    - docker login -u $DOCKER_USER -p $DOCKER_PASS -e $DOCKER_EMAIL
+test:
+  override:
+    - docker build -t borealisit/nginx .
+deployment:
+  production:
+    branch: master
+    commands:
+      - docker push borealisit/nginx
+      
